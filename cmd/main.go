@@ -42,7 +42,7 @@ func main() {
 		return
 	}
 
-	repos := repository.NewRepository()
+	repos := repository.NewRepository(db.GetDBConn())
 	service := service.NewService(repos)
 	handler := handler.NewHandler(service)
 

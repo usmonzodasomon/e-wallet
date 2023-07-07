@@ -24,11 +24,11 @@ func (h *handler) InitRoutes() *gin.Engine {
 			c.JSON(http.StatusOK, gin.H{"message": "pong"})
 		})
 
-		// auth := api.Group("/auth")
-		// {
-		// 	// auth.POST("/sign-up", h.signUp)
-		// 	// auth.POST("/sign-in", h.signIn)
-		// }
+		auth := api.Group("/auth")
+		{
+			auth.POST("/sign-up", h.signUp)
+			auth.POST("/sign-in", h.signIn)
+		}
 
 	}
 	return router
