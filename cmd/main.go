@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -48,7 +49,7 @@ func main() {
 
 	srv := new(wallet.Server)
 	go func() {
-		if err := srv.Run(viper.GetString("port"), handler.InitRoutes()); err != nil {
+		if err := srv.Run(viper.GetString("port"), handler.InitRoutes()); err != nil && err != http.ErrServerClosed {
 			log.Println("Error occured while starting server: ", err)
 			return
 		}

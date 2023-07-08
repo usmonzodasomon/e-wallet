@@ -10,12 +10,18 @@ type Authorization interface {
 	GetUser(phone, password string) (models.User, error)
 }
 
+type Wallet interface {
+	CreateWallet(wallet *models.Wallet) error
+}
+
 type Repository struct {
 	Authorization
+	Wallet
 }
 
 func NewRepository(db *gorm.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
+		Wallet:        NewWalletPostgres(db),
 	}
 }

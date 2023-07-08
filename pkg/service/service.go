@@ -8,14 +8,21 @@ import (
 type Authorization interface {
 	SignUp(user *models.User) error
 	GenerateToken(user models.User) (string, error)
+	ParseToken(accessToken string) (int64, error)
+}
+
+type Wallet interface {
+	CreateWallet(wallet *models.Wallet) error
 }
 
 type Service struct {
 	Authorization
+	Wallet
 }
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		Wallet:        NewWalletService(repos.Wallet),
 	}
 }
