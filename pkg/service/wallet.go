@@ -28,3 +28,7 @@ func (s *WalletService) GetBalance(userID int64) (float64, error) {
 	}
 	return s.repos.GetBalance(Wallet.ID)
 }
+
+func (s *WalletService) TopUp(TopUp models.TopUp) (models.Transaction, error) {
+	return s.repos.TopUp(TopUp)
+}

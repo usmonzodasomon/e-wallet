@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/usmonzodasomon/e-wallet/models"
 )
 
 func (h *handler) checkAccount(c *gin.Context) {
@@ -21,6 +22,32 @@ func (h *handler) checkAccount(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "success",
 		"wallet":  Wallet,
+	})
+}
+
+func (h *handler) topUp(c *gin.Context) {
+	userID, err := GetUserId(c)
+	if err != nil {
+		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	var TopUp models.TopUp
+	if err := c.BindJSON(&TopUp); err != nil {
+		NewErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+	TopUp.SenderID = userID
+
+	transaction, err := h.services.Wallet.TopUp(TopUp)
+	if err != nil {
+		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message":     "success",
+		"transaction": transaction,
 	})
 }
 

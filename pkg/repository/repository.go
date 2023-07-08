@@ -14,6 +14,10 @@ type Wallet interface {
 	CreateWallet(wallet *models.Wallet) error
 	CheckAccount(userID int64) (models.Wallet, error)
 	GetBalance(walletID int64) (float64, error)
+	GetWalletByPhoneNumber(phone string) (models.Wallet, error)
+	GetWalletByUserID(userID int64) (models.Wallet, error)
+	TopUp(TopUp models.TopUp) (models.Transaction, error)
+	CreateTransaction(db *gorm.DB, transaction models.Transaction) error
 }
 
 type Repository struct {
