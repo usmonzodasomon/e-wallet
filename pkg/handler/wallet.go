@@ -69,3 +69,23 @@ func (h *handler) getBalance(c *gin.Context) {
 		"balance": balance,
 	})
 }
+
+func (h *handler) monthStatistic(c *gin.Context) {
+	userID, err := GetUserId(c)
+	if err != nil {
+		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	totalCount, totalAmount, err := h.services.Wallet.MonthStatistic(userID)
+	if err != nil {
+		NewErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message":      "success",
+		"total_count":  totalCount,
+		"total_amount": totalAmount,
+	})
+}

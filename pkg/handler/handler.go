@@ -34,7 +34,7 @@ func (h *handler) InitRoutes() *gin.Engine {
 		{
 			wallet.POST("/check_account", h.checkAccount)
 			wallet.POST("/top-up", h.topUp)
-			// wallet.POST("/statistic", h.monthStatistic)
+			wallet.POST("/statistic", h.monthStatistic)
 			wallet.POST("/balance", h.getBalance)
 		}
 	}

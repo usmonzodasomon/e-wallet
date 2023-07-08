@@ -16,6 +16,7 @@ type Wallet interface {
 	CheckAccount(userID int64) (models.Wallet, error)
 	GetBalance(userID int64) (float64, error)
 	TopUp(TopUp models.TopUp) (models.Transaction, error)
+	MonthStatistic(userID int64) (totalCount int, totalAmount float64, err error)
 }
 
 type Service struct {

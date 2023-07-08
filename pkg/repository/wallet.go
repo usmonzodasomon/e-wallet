@@ -151,3 +151,10 @@ func (r *WalletPostgres) TopUp(TopUp models.TopUp) (models.Transaction, error) {
 func (r *WalletPostgres) CreateTransaction(db *gorm.DB, transaction models.Transaction) error {
 	return db.Create(&transaction).Error
 }
+
+func (r *WalletPostgres) MonthStatistic(walletID int64, firstDayMonth string, lastDayMonth string) (trn []models.Transaction, err error) {
+	if err := r.db.Where("receiver_id = ? AND date >= ? AND date <= ? AND transaction_type = ?", walletID, firstDayMonth, lastDayMonth, replenishment).Find(&trn).Error; err != nil {
+		return nil, err
+	}
+	return trn, nil
+}

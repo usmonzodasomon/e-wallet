@@ -18,6 +18,7 @@ type Wallet interface {
 	GetWalletByUserID(userID int64) (models.Wallet, error)
 	TopUp(TopUp models.TopUp) (models.Transaction, error)
 	CreateTransaction(db *gorm.DB, transaction models.Transaction) error
+	MonthStatistic(walletID int64, firstDayMonth string, lastDayMonth string) (trn []models.Transaction, err error)
 }
 
 type Repository struct {
