@@ -26,7 +26,7 @@ func (h *handler) signUp(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	c.JSON(http.StatusCreated, gin.H{
 		"message": "success",
 		"id":      User.ID,
 	})

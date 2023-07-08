@@ -30,6 +30,13 @@ func (h *handler) InitRoutes() *gin.Engine {
 			auth.POST("/sign-in", h.signIn)
 		}
 
+		wallet := api.Group("/wallet", h.UserIdentity)
+		{
+			wallet.POST("/check_account", h.checkAccount)
+			// auth.POST("/top-up", h.topUp)
+			// auth.POST("/statistic", h.monthStatistic)
+			wallet.POST("/balance", h.getBalance)
+		}
 	}
 	return router
 }

@@ -16,7 +16,7 @@ func (h *handler) UserIdentity(c *gin.Context) {
 	}
 
 	headerParts := strings.Split(header, " ")
-	if len(headerParts) != 2 {
+	if len(headerParts) != 2 || headerParts[0] != "Bearer" {
 		NewErrorResponse(c, http.StatusUnauthorized, "invalid auth header")
 		return
 	}

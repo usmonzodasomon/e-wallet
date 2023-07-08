@@ -16,3 +16,15 @@ func NewWalletService(repos repository.Wallet) *WalletService {
 func (s *WalletService) CreateWallet(wallet *models.Wallet) error {
 	return s.repos.CreateWallet(wallet)
 }
+
+func (s *WalletService) CheckAccount(userID int64) (models.Wallet, error) {
+	return s.repos.CheckAccount(userID)
+}
+
+func (s *WalletService) GetBalance(userID int64) (float64, error) {
+	Wallet, err := s.repos.CheckAccount(userID)
+	if err != nil {
+		return -1, err
+	}
+	return s.repos.GetBalance(Wallet.ID)
+}

@@ -12,6 +12,8 @@ type Authorization interface {
 
 type Wallet interface {
 	CreateWallet(wallet *models.Wallet) error
+	CheckAccount(userID int64) (models.Wallet, error)
+	GetBalance(walletID int64) (float64, error)
 }
 
 type Repository struct {
